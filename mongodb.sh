@@ -27,7 +27,7 @@ VALIDATE () {
     echo -e "$2 ....$G SUCCESS $N"
     fi
 }
-cp mongo.repo  vim /etc/yum.repos.d/mongo.repo &>> $LOGFILE
+cp mongo.repo  /etc/yum.repos.d/mongo.repo &>> $LOGFILE
 VALIDATE $? "Copying of MongoDB Repo"
 
 dnf install mongodb-org -y  &>> $LOGFILE
