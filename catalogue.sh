@@ -1,9 +1,9 @@
 #! /bin/bash
 
-R="\[31m"
-G="\[32m"
-Y="\[33m"
-N="\[0m"
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
 
 MONGDB_HOST=mongodb.littlesimba.online
 
