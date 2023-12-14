@@ -14,7 +14,7 @@ LOGFILE="/tmp/$0-$TIMESTAMP.log"
 
 echo "script started executing at $TIMESTAMP" &>> $LOGFILE
 
-if [ $ID -ne o ]
+if [ $ID -ne 0 ]
 then
 echo -e "$R YOU ARE NOT A ROOT USER.ACCESS DENIED $N" &>> $LOGFILE
 exit 22
