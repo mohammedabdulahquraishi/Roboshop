@@ -1,5 +1,5 @@
-#! /bin/bash
-
+#!/bin/bash
+ID=$(id -u)
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
@@ -7,7 +7,7 @@ N="\e[0m"
 
 MONGDB_HOST=mongodb.littlesimba.online
 
-ID=$(id -u)
+
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-$TIMESTAMP.log"
@@ -17,7 +17,7 @@ echo "script started executing at $TIMESTAMP" &>> $LOGFILE
 if [ $ID -ne 0 ]
 then
 echo -e "$R YOU ARE NOT A ROOT USER.ACCESS DENIED $N" &>> $LOGFILE
-exit 22
+exit 1
 else 
 echo -e "$G WELCOME ABOARD $N" &>> $LOGFILE
 fi
@@ -26,7 +26,7 @@ VALIDATE() {
     if [ $1 -ne 0 ]
     then
     echo -e "$2 ....$R FAILED $N" &>> $LOGFILE
-    exit 22
+    exit 1
     else
     echo -e "$2 ....$G SUCCESS $N" &>> $LOGFILE
     fi
