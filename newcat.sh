@@ -29,4 +29,11 @@ VALIDATE() {
     fi
 }
 
+dnf module disable nodejs -y  &>> $LOGFILE
+VALIDATE $? "Disabling of older version of Nodejs" 
 
+dnf module enable nodejs:18 -y &>> $LOGFILE
+VALIDATE $? "Enabling of version 18 of Nodejs"
+
+dnf install nodejs -y &>> $LOGFILE
+VALIDATE $? "Installing of version 18 of Nodejs"
