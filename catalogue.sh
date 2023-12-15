@@ -66,7 +66,7 @@ cd /app
 npm install &>> $LOGFILE
 VALIDATE $? "Installing dependencies"
 
-cp catalogue.service  /etc/systemd/system/catalogue.service &>> $LOGFILE
+cp /home/centos/Roboshop/catalogue.service  /etc/systemd/system/catalogue.service &>> $LOGFILE
 VALIDATE $? "copying catalogue service file"
 
 systemctl daemon-reload &>> $LOGFILE
@@ -78,7 +78,7 @@ VALIDATE $? "Enable catalogue"
 systemctl start catalogue &>> $LOGFILE
 VALIDATE $? "Starting catalogue"
 
-cp mongo.repo /etc/yum.repos.d/mongo.repo
+cp /home/centos/Roboshop/mongo.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "copying mongodb repo"
 
 dnf install mongodb-org-shell -y &>> $LOGFILE
