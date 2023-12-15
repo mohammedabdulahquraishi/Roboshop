@@ -13,19 +13,19 @@ echo "script started executing at $TIMESTAMP" &>> $LOGFILE
 
 if [ $ID -ne 0 ]
 then
-echo "Login with Root user"
+echo -e "$R Login with Root user $N"
 exit 1
 else 
-echo "Welcome aboard"
+echo -e "$G Welcome aboard $N"
 fi
 
 VALIDATE() {
     if [ $1 -ne 0 ]
     then
-    echo "$2 ....FAILED"
+    echo -e "$2 ....$R FAILED $N"
     exit 1
     else
-    echo "$2 ....SUCCESS"
+    echo -e "$2 ....$G SUCCESS $N"
     fi
 }
 

@@ -6,12 +6,12 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-MONGDB_HOST=mongodb.littlesimba.online
+# MONGDB_HOST=mongodb.littlesimba.online
 
 
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
-LOGFILE="/tmp/$0-$TIMESTAMP.log"
+LOGFILE="/tmp/$0-$TIMESTAMP.log" 
 
 echo "script started executing at $TIMESTAMP" &>> $LOGFILE
 
@@ -34,7 +34,7 @@ VALIDATE() {
 }
 
 dnf module disable nodejs -y  &>> $LOGFILE
-VALIDATE $? "Disabling of older version of Nodejs"
+VALIDATE $? "Disabling of older version of Nodejs" 
 
 dnf module enable nodejs:18 -y &>> $LOGFILE
 VALIDATE $? "Enabling of version 18 of Nodejs"
@@ -85,6 +85,6 @@ VALIDATE $? "copying mongodb repo"
 dnf install mongodb-org-shell -y &>> $LOGFILE
 VALIDATE $? "Installing mongodb client"
 
-mongo --host $MONGDB_HOST </app/schema/catalogue.js &>> $LOGFILE
+mongo --host mongodb.littlesimba.online </app/schema/catalogue.js &>> $LOGFILE
 
-VALIDATE $? "Loading catalouge data into MongoDB"
+VALIDATE $? "Loading catalouge data into MongoDB" 
