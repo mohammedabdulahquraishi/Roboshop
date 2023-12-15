@@ -22,7 +22,7 @@ else
 echo -e "$G WELCOME ABOARD $N" &>> $LOGFILE
 fi
 
-VALIDATE () {
+VALIDATE() {
     if [ $1 -ne 0 ]
     then
     echo -e "$2 ....$R FAILED $N" &>> $LOGFILE
