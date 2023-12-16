@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/bash
 
 ID=$(id -u)
 R="\e[31m"
@@ -13,10 +13,10 @@ echo "script started executing at $TIMESTAMP" &>> $LOGFILE
 
 if [ $ID -ne 0 ]
 then
-echo -e "$R YOU ARE NOT A ROOT USER.ACCESS DENIED $N" &>> $LOGFILE
+echo -e "$R Login with Root user $N" &>> $LOGFILE
 exit 1
 else 
-echo -e "$G WELCOME ABOARD $N" &>> $LOGFILE
+echo -e "$G Welcome aboard $N" &>> $LOGFILE
 fi
 
 VALIDATE() {
@@ -50,37 +50,27 @@ fi
 mkdir -p /app &>> $LOGFILE
 VALIDATE $? "creating app directory"
 
-curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
-VALIDATE $? "Downloading catalogue application"
+curl -L -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>> $LOGFILE
+VALIDATE $? "Downloading cart application"
 
 cd /app 
 
-unzip /tmp/catalogue.zip &>> $LOGFILE
-VALIDATE $? "Unzipping catalogue"
+unzip -o /tmp/cart.zip &>> $LOGFILE
+VALIDATE $? "Unzipping cart"
 
 cd /app
 
 npm install &>> $LOGFILE
 VALIDATE $? "Installing dependencies"
 
-cp /home/centos/Roboshop/catalogue.service  /etc/systemd/system/catalogue.service &>> $LOGFILE
-VALIDATE $? "copying catalogue service file"
+cp /home/centos/Roboshop/cart.service  /etc/systemd/system/cart.service &>> $LOGFILE
+VALIDATE $? "copying cart service file"
 
 systemctl daemon-reload &>> $LOGFILE
-VALIDATE $? "catalogue daemon reload"
+VALIDATE $? "cart daemon reload"
 
-systemctl enable catalogue &>> $LOGFILE
-VALIDATE $? "Enable catalogue"
+systemctl enable cart &>> $LOGFILE
+VALIDATE $? "Enable cart"
 
-systemctl start catalogue &>> $LOGFILE
-VALIDATE $? "Starting catalogue"
-
-cp /home/centos/Roboshop/mongo.repo /etc/yum.repos.d/mongo.repo
-VALIDATE $? "copying mongodb repo"
-
-dnf install mongodb-org-shell -y &>> $LOGFILE
-VALIDATE $? "Installing mongodb client"
-
-mongo --host mongodb.littlesimba.online </app/schema/catalogue.js &>> $LOGFILE
-
-VALIDATE $? "Loading catalouge data into MongoDB" 
+systemctl start cart &>> $LOGFILE
+VALIDATE $? "Starting cart"

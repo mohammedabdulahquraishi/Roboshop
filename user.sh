@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/bash
 
 ID=$(id -u)
 R="\e[31m"
@@ -13,10 +13,10 @@ echo "script started executing at $TIMESTAMP" &>> $LOGFILE
 
 if [ $ID -ne 0 ]
 then
-echo -e "$R YOU ARE NOT A ROOT USER.ACCESS DENIED $N" &>> $LOGFILE
+echo -e "$R Login with Root user $N" &>> $LOGFILE
 exit 1
 else 
-echo -e "$G WELCOME ABOARD $N" &>> $LOGFILE
+echo -e "$G Welcome aboard $N" &>> $LOGFILE
 fi
 
 VALIDATE() {
@@ -50,30 +50,30 @@ fi
 mkdir -p /app &>> $LOGFILE
 VALIDATE $? "creating app directory"
 
-curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
-VALIDATE $? "Downloading catalogue application"
+curl -L -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip &>> $LOGFILE
+VALIDATE $? "Downloading user application"
 
 cd /app 
 
-unzip /tmp/catalogue.zip &>> $LOGFILE
-VALIDATE $? "Unzipping catalogue"
+unzip -o /tmp/user.zip &>> $LOGFILE
+VALIDATE $? "Unzipping user"
 
 cd /app
 
 npm install &>> $LOGFILE
 VALIDATE $? "Installing dependencies"
 
-cp /home/centos/Roboshop/catalogue.service  /etc/systemd/system/catalogue.service &>> $LOGFILE
-VALIDATE $? "copying catalogue service file"
+cp /home/centos/Roboshop/user.service  /etc/systemd/system/user.service &>> $LOGFILE
+VALIDATE $? "copying user service file"
 
 systemctl daemon-reload &>> $LOGFILE
-VALIDATE $? "catalogue daemon reload"
+VALIDATE $? "user daemon reload"
 
-systemctl enable catalogue &>> $LOGFILE
-VALIDATE $? "Enable catalogue"
+systemctl enable user &>> $LOGFILE
+VALIDATE $? "Enable user"
 
-systemctl start catalogue &>> $LOGFILE
-VALIDATE $? "Starting catalogue"
+systemctl start user &>> $LOGFILE
+VALIDATE $? "Starting user"
 
 cp /home/centos/Roboshop/mongo.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "copying mongodb repo"
@@ -81,6 +81,6 @@ VALIDATE $? "copying mongodb repo"
 dnf install mongodb-org-shell -y &>> $LOGFILE
 VALIDATE $? "Installing mongodb client"
 
-mongo --host mongodb.littlesimba.online </app/schema/catalogue.js &>> $LOGFILE
+mongo --host mongodb.littlesimba.online </app/schema/user.js &>> $LOGFILE
 
-VALIDATE $? "Loading catalouge data into MongoDB" 
+VALIDATE $? "Loading user data into MongoDB" 
