@@ -31,13 +31,14 @@ VALIDATE () {
 dnf install maven -y &>> $LOGFILE
 VALIDATE $? "Installing maven"
 
-id roboshop
+
+id roboshop #if roboshop user does not exist, then it is failure
 if [ $? -ne 0 ]
 then
-useradd roboshop $>> $LOGFILE
-VALIDATE $? "User Roboshop creation"
+    useradd roboshop
+    VALIDATE $? "roboshop user creation"
 else
-echo -e "User Roboshop already exists $Y SKIPPING $N"
+    echo -e "roboshop user already exist $Y SKIPPING $N"
 fi
 
 mkdir -p /app &>> $LOGFILE
