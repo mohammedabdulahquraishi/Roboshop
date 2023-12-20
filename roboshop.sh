@@ -13,7 +13,7 @@ do
         INSTANCE_TYPE="t2.micro"
     fi
 
-    aws ec2 run-instances --image-id ami-03265a0778a880afb --count 1 --instance-type $INSTANCE_TYPE --key-name sg-07062d9c12192a838
+    aws ec2 run-instances --image-id ami-03265a0778a880afb --instance-type $INSTANCE_TYPE --security-group-ids sg-07062d9c12192a838
 
- 
+
 done     
